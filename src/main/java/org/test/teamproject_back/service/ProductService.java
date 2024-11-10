@@ -24,8 +24,6 @@ public class ProductService {
 
     public RespSearchProductDto getAllProducts(ReqSearchDto dto) {
         int startIndex = (dto.getPage() - 1) * dto.getLimit();
-        System.out.println("startIndex>>>>>>>>" + startIndex);
-        System.out.println("limit>>>>>>>>" + dto.getLimit());
 
         Map<String, Object> paging = Map.of(
                 "startIndex", startIndex,

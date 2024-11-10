@@ -9,6 +9,42 @@
         <result property="paymentStatus" column="payment_status"></result>
         <result property="amount" column="amount"></result>
         <result property="paymentDate" column="payment_date"></result>
+        <association property="order" resultMap="orderResultMap"></association>
+        <collection property="orderItem" resultMap="orderItemResultMap"></collection>
+    </resultMap>
+    <resultMap id="orderResultMap" type="org.test.teamproject_back.entity.Order">
+        <id property="orderId" column="order_id"></id>
+        <result property="orderStatus" column="order_status"></result>
+        <result property="createdAt" column="created_at"></result>
+        <result property="totalAmount" column="total_amount"></result>
+        <collection property="user" resultMap="userResultMap"></collection>
+    </resultMap>
+    <resultMap id="userResultMap" type="org.test.teamproject_back.entity.User">
+        <id property="userId" column="user_id"></id>
+        <result property="username" column="username"></result>
+        <result property="name" column="name"></result>
+    </resultMap>
+    <resultMap id="orderItemResultMap" type="org.test.teamproject_back.entity.OrderItem">
+        <id property="orderItemId" column="order_item_id"></id>
+        <result property="orderId" column="order_id"></result>
+        <result property="price" column="price"></result>
+        <result property="quantity" column="quantity"></result>
+        <association property="product" resultMap="productResultMap"></association>
+    </resultMap>
+    <resultMap id="productResultMap" type="org.test.teamproject_back.entity.Product">
+        <id property="productId" column="product_id"></id>
+        <result property="title" column="title"></result>
+        <result property="price" column="price"></result>
+        <result property="stock" column="stock"></result>
+        <result property="salesCount" column="sales_count"></result>
+        <result property="description" column="description"></result>
+        <result property="origin" column="origin"></result>
+        <result property="thumbnailImg" column="thumbnail_img"></result>
+        <result property="contentsImg1" column="contents_img1"></result>
+        <result property="contentsImg2" column="contents_img2"></result>
+        <result property="contentsImg3" column="contents_img3"></result>
+        <result property="contentsImg4" column="contents_img4"></result>
+        <result property="createdDate" column="created_date"></result>
     </resultMap>
     <insert id="addPayment">
         insert into payments_tb
@@ -62,6 +98,16 @@
             months.month
         ORDER BY
             months.month asc;
+    </select>
+    <select id="getGraphData" resultMap="productResultMap">
+        select
+            title,
+            stock
+        from
+            products_tb
+        order by
+            stock desc
+        limit 5
     </select>
     <select id="findPaymentNumByOrderId" resultType="java.lang.String">
         select
