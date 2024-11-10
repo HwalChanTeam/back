@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,4 +18,7 @@ public class Payment {
     private String paymentStatus;
     private Long amount;
     private String paymentDate;
+
+    private Order order;
+    private OrderItem orderItem;
 }
